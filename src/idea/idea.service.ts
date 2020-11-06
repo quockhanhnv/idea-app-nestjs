@@ -19,9 +19,6 @@ export class IdeaService {
     }
 
     async create(userId: string, data: IdeaDTO): Promise<IdeaRO> {
-        console.log('userId', userId);
-        
-        // const user = await this.userRepository.findOne({ where: { id: userId } });
         const user = await this.userRepository.findOne({ where: { id: 1 } });
        
         const idea = await this.ideaRepository.create({...data, author: user});
