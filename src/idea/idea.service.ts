@@ -39,7 +39,7 @@ export class IdeaService {
     }
 
     async update(id: string, userId: string, data: Partial<IdeaDTO>): Promise<IdeaRO> {
-        const idea = await this.ideaRepository.findOne({ where: { id }, relations: ['author'] });
+        let idea = await this.ideaRepository.findOne({ where: { id }, relations: ['author'] });
         if(!idea) {
             throw new HttpException('Not found idea', HttpStatus.NOT_FOUND);
         }
@@ -47,6 +47,7 @@ export class IdeaService {
         this.ensureOwnerShip(idea, userId);
         
         await this.ideaRepository.update({id}, data);
+        idea = await this.ideaRepository.findOne({ where: { id }, relations: ['author'] })
         return this.toResponseObject(idea);
     }
 
@@ -59,7 +60,7 @@ export class IdeaService {
         this.ensureOwnerShip(idea, userId);
 
         await this.ideaRepository.delete({ id });
-        return idea;
+        return this.toResponseObject(idea);
     }
 
     private toResponseObject(idea: IdeaEntity): IdeaRO {
