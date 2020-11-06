@@ -27,13 +27,15 @@ export class IdeaController {
     }
 
     @Put(':id')
+    @UseGuards(new AuthGuard())
     @UsePipes(new ValidationPipe())
-    updateIdea(@Param('id') id: string, @Body() data: Partial<IdeaDTO>) {
-        return this.ideaService.update(id, data);
+    updateIdea(@Param('id') id: string, @User('id') user: string, @Body() data: Partial<IdeaDTO>) {
+        return this.ideaService.update(id, user, data);
     }
 
     @Delete(':id')
-    destroyIdea(@Param('id') id: string) {
-        return this.ideaService.destroy(id);
+    @UseGuards(new AuthGuard())
+    destroyIdea(@Param('id') id: string, @User('id') user) {
+        return this.ideaService.destroy(id, user);
     }
 }
