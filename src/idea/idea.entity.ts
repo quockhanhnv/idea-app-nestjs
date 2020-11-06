@@ -1,5 +1,7 @@
-import { from } from "rxjs";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { type } from 'os';
+import { User } from 'src/user/user.decorator';
+import { UserEntity } from 'src/user/user.entity';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('idea')
 export class IdeaEntity {
@@ -10,4 +12,9 @@ export class IdeaEntity {
     @Column('text') description: string;
 
     @CreateDateColumn() created: Date;
+
+    @UpdateDateColumn() updated: Date;
+
+    @ManyToOne(type => UserEntity, author => author.ideas)
+    author: UserEntity;
 }
