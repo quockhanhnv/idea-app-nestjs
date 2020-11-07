@@ -18,8 +18,6 @@ export class IdeaController {
     @UseGuards(new AuthGuard())
     @UsePipes(new ValidationPipe())
     async createIdea(@User('id') user, @Body() data: IdeaDTO) {
-        console.log('id', user);
-        
         return this.ideaService.create(user, data);
     }
 
