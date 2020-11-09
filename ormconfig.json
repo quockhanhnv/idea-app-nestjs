@@ -3,7 +3,7 @@
     "host": "localhost",
     "port": "3306",
     "username":"root",
-    "password": "quockhanhnv0209a@",
+    "password": "mysql",
     "database": "ideas",
     "synchronize": true,
     "logging": true,
